@@ -1,2 +1,23 @@
 
 /* Your CSS Code here. */
+h1{
+    display: flex;
+    justify-content: center;
+    color: grey;
+}
+
+#load_next{
+    float: right;
+    font-size: 25px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    color: antiquewhite;
+}
+
+#load_prev{
+    float: left;
+    font-size: 25px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    color: antiquewhite;
+}
