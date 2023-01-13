@@ -1,12 +1,38 @@
-//your code here
-const next = document.getElementById('load_next');
-next.addEventListener('click', getDetailsNextPage)
+//const { response } = require("express");
 
-async function getDetailsNextPage() {
+let currentPage = 1;
+let totalPages = null;
 
-    const response = await fetch("https://api.github.com/repositories/1296269/issues?page=${pageNumberHere}&per_page=5");
+function displayIssues(page) {
+    fetch(`https://api.github.com/repositories/1296269/issues?page=${page}&per_page=5`)
+        .then(response => response.json())
+        .then(data => {
+            const issuesList = document.getElementById("issuesList");
+            issuesList.innerHTML = "";
+            data.forEach(issue => {
+                const li = document.createElement("li");
+                li.innerHTML = issue.title;
+                issuesList.appendChild(li);
+            });
 
-    var data = await response.json();
-    console.log(data);
-    //Show(data);
+            document.getElementById("pageNumber").innerHTML = `Page number ${page}`;
+            totalPages = response.headers.get("Link").split(",")[1].match(/page=(\d+)/)[1];
+        })
+        .catch(error => console.error(error))
 }
+
+displayIssues(currentPage);
+
+document.getElementById("load_next").addEventListener("click", function() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayIssues(currentPage);
+    }
+});
+
+document.getElementById("load_prev").addEventListener("click", function() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayIssues(currentPage);
+    }
+});
