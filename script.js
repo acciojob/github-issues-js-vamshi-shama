@@ -8,7 +8,7 @@ function displayIssues(page) {
         .then(response => response.json())
         .then(data => {
             const issuesList = document.getElementById("issuesList");
-            issuesList.innerHTML = "";
+            //issuesList.innerHTML = "";
             data.forEach(issue => {
                 const li = document.createElement("li");
                 li.innerHTML = issue.title;
